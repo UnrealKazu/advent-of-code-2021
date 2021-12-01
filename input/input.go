@@ -7,9 +7,10 @@ package input
 import (
 	"bufio"
 	"os"
+	"strconv"
 )
 
-// Read opens the file at the given path, reads it in its entirity, and returns a slice of strings with its contents
+// Read opens the file at the given path, reads it in its entirety, and returns a slice of strings with its contents
 func Read(path string) []string {
 	f, err := os.Open(path)
 
@@ -24,6 +25,28 @@ func Read(path string) []string {
 	m := make([]string, 0)
 	for s.Scan() {
 		l := s.Text()
+
+		m = append(m, l)
+	}
+
+	return m
+}
+
+// ReadInt opens the file at the given path, reads it in its entirety, and returns a slice of ints with its contents
+func ReadInt(path string) []int {
+	f, err := os.Open(path)
+
+	if err != nil {
+		// because input is vital to the challenge, panic on any error. We cannot continue anyway
+		panic(err)
+	}
+	defer f.Close()
+
+	s := bufio.NewScanner(f)
+
+	m := make([]int, 0)
+	for s.Scan() {
+		l, _ := strconv.Atoi(s.Text())
 
 		m = append(m, l)
 	}

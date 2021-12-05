@@ -12,11 +12,6 @@ const (
 	DiagramSize int = 1000
 )
 
-type Interval struct {
-	Start int
-	Stop  int
-}
-
 func main() {
 	in := input.Read("input.txt")
 

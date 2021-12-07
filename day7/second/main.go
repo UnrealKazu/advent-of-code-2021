@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/advent-of-code-2021/input"
+	"github.com/advent-of-code-2021/mathutil"
 )
 
 func main() {
@@ -30,7 +31,7 @@ func main() {
 }
 
 func DetermineLeastFuel(in []int) int {
-	mean := GetMean(in)
+	mean, _ := mathutil.Mean(in)
 	flMean := int(math.Floor(float64(mean)))
 	ceilMean := int(math.Ceil(float64(mean)))
 
@@ -59,14 +60,4 @@ func CalculateFuel(mean int, in []int) int {
 	}
 
 	return fuel
-}
-
-func GetMean(in []int) float64 {
-	sum := 0
-
-	for _, el := range in {
-		sum += el
-	}
-
-	return float64(sum) / float64(len(in))
 }

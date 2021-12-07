@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"sort"
 	"strconv"
 	"strings"
 
 	"github.com/advent-of-code-2021/input"
+	"github.com/advent-of-code-2021/mathutil"
 )
 
 func main() {
@@ -27,7 +27,8 @@ func main() {
 }
 
 func CalculateFuel(in []int) int {
-	med := GetMedian(in)
+	medFloat, _ := mathutil.Median(in)
+	med := int(medFloat)
 
 	fuel := 0
 
@@ -40,20 +41,4 @@ func CalculateFuel(in []int) int {
 	}
 
 	return fuel
-}
-
-func GetMedian(in []int) int {
-	sort.Ints(in)
-
-	cen := len(in) / 2
-
-	var med int
-	if len(in)%2 == 0 {
-		// even num of ints, so take average of the center
-		med = (in[cen-1] + in[cen]) / 2
-	} else {
-		med = in[cen]
-	}
-
-	return med
 }

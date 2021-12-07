@@ -6,10 +6,14 @@ import (
 	"sort"
 )
 
+var (
+	ErrEmptySlice = errors.New("mathutil: slice parameter is empty")
+)
+
 // Mean calculates the mean of the given int slice and returns it
 func Mean(in []int) (float64, error) {
 	if len(in) == 0 {
-		return -1, errors.New("empty input slice")
+		return -1, ErrEmptySlice
 	}
 
 	sum := 0
@@ -24,7 +28,7 @@ func Mean(in []int) (float64, error) {
 // Median calculates the median of the given int slice and returns it
 func Median(in []int) (float64, error) {
 	if len(in) == 0 {
-		return -1, errors.New("empty input slice")
+		return -1, ErrEmptySlice
 	}
 
 	sort.Ints(in)

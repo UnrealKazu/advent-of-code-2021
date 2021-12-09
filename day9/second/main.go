@@ -29,6 +29,8 @@ func main() {
 	fmt.Printf("Sizes of the three biggest basins multiplied is %d\n", sizes[len(sizes)-1]*sizes[len(sizes)-2]*sizes[len(sizes)-3])
 }
 
+// getBasinSize returns the size of the basin (surprise) of the given low point. It traverses all neighbours and
+// counts all non boundary ones
 func getBasinSize(p Point, hm *[][]int) int {
 	count := 0
 	unchecked := []Point{}
@@ -55,6 +57,8 @@ func getBasinSize(p Point, hm *[][]int) int {
 	return count
 }
 
+// getUncheckedNonBoundaryNeighbours returns a slice of points that are not a boundary point (i.e. not a 9),
+// and have not been traversed before (i.e. a 10)
 func getUncheckedNonBoundaryNeighbours(i, j int, hm *[][]int) []Point {
 	unchecked := []Point{}
 	// left neigbour
@@ -96,6 +100,7 @@ func getUncheckedNonBoundaryNeighbours(i, j int, hm *[][]int) []Point {
 	return unchecked
 }
 
+// getLowestPoints returns a slice of all points that are the lowest value of all their neighbours
 func getLowestPoints(hm [][]int) []Point {
 	points := []Point{}
 	for i := 0; i < len(hm); i++ {

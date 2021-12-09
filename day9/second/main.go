@@ -37,12 +37,16 @@ func getBasinSize(p Point, hm *[][]int) int {
 	count++
 
 	// fill the unchecked with a first round
-	getNonBoundaryNeighbours(p.i, p.j, hm, &unchecked, &count)
+	unchecked = append(unchecked, getUncheckedNonBoundaryNeighbours(p.i, p.j, hm)...)
+	count += len(unchecked)
 
 	for len(unchecked) > 0 {
 		cur := unchecked[0]
 
-		getNonBoundaryNeighbours(cur.i, cur.j, hm, &unchecked, &count)
+		newPoints := getUncheckedNonBoundaryNeighbours(cur.i, cur.j, hm)
+		count += len(newPoints)
+
+		unchecked = append(unchecked, newPoints...)
 
 		// remove the just checked point
 		unchecked = unchecked[1:]
@@ -52,46 +56,45 @@ func getBasinSize(p Point, hm *[][]int) int {
 	return count
 }
 
-func getNonBoundaryNeighbours(i, j int, hm *[][]int, unchecked *[]Point, count *int) {
+func getUncheckedNonBoundaryNeighbours(i, j int, hm *[][]int) []Point {
+	unchecked := []Point{}
 	// left neigbour
 	if j > 0 && (*hm)[i][j-1] < 9 {
-		*unchecked = append(*unchecked, Point{
+		unchecked = append(unchecked, Point{
 			i: i,
 			j: j - 1,
 		})
 		(*hm)[i][j-1] = 10
-		(*count)++
 	}
 
 	// top neighbour
 	if i > 0 && (*hm)[i-1][j] < 9 {
-		*unchecked = append(*unchecked, Point{
+		unchecked = append(unchecked, Point{
 			i: i - 1,
 			j: j,
 		})
 		(*hm)[i-1][j] = 10
-		(*count)++
 	}
 
 	// right neigbour
 	if j < len((*hm)[i])-1 && (*hm)[i][j+1] < 9 {
-		*unchecked = append(*unchecked, Point{
+		unchecked = append(unchecked, Point{
 			i: i,
 			j: j + 1,
 		})
 		(*hm)[i][j+1] = 10
-		(*count)++
 	}
 
 	// bottom neighbour
 	if i < len((*hm))-1 && (*hm)[i+1][j] < 9 {
-		*unchecked = append(*unchecked, Point{
+		unchecked = append(unchecked, Point{
 			i: i + 1,
 			j: j,
 		})
 		(*hm)[i+1][j] = 10
-		(*count)++
 	}
+
+	return unchecked
 }
 
 func getLowestPoints(hm [][]int) []Point {

@@ -26,7 +26,7 @@ func main() {
 
 	sort.Ints(sizes)
 
-	fmt.Printf("Sizes of the three biggest basins multiplied is %d\n", sizes[len(sizes)-1]*sizes[len(sizes)-2]*sizes[len(sizes)-2])
+	fmt.Printf("Sizes of the three biggest basins multiplied is %d\n", sizes[len(sizes)-1]*sizes[len(sizes)-2]*sizes[len(sizes)-3])
 }
 
 func getBasinSize(p Point, hm *[][]int) int {
@@ -40,16 +40,15 @@ func getBasinSize(p Point, hm *[][]int) int {
 	unchecked = append(unchecked, getUncheckedNonBoundaryNeighbours(p.i, p.j, hm)...)
 	count += len(unchecked)
 
+	// continue adding more neighbours until we have nothing more to check
 	for len(unchecked) > 0 {
 		cur := unchecked[0]
 
 		newPoints := getUncheckedNonBoundaryNeighbours(cur.i, cur.j, hm)
 		count += len(newPoints)
 
-		unchecked = append(unchecked, newPoints...)
-
-		// remove the just checked point
-		unchecked = unchecked[1:]
+		// remove the just checked point (the first), and add the newly discovered once
+		unchecked = append(unchecked[1:], newPoints...)
 	}
 
 	// do a count on all neighbours

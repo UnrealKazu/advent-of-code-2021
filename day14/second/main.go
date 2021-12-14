@@ -26,7 +26,7 @@ func startPolymerization(in []string) int64 {
 	count := map[string]int64{}
 
 	// initialize the count with all possible pairs
-	for ent, _ := range m {
+	for ent := range m {
 		count[ent] = 0
 	}
 

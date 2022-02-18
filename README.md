@@ -4,6 +4,8 @@ This is my attempt at solving all puzzles in the [Advent of Code 2021](https://a
 
 Since all puzzle inputs are personally generated, I've added the input files for each day as well.
 
+All solutions up to and including day 17 are complete. Day 18 is still a WIP. Hopefully someday in the future I will find the time to continue working on the remaining puzzles, and finish them.
+
 ## Packages
 During this event I also created a few packages to isolate useful code so they can be used in later solutions as well.
 

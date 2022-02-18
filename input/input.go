@@ -6,6 +6,7 @@ package input
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strconv"
 )
@@ -21,12 +22,19 @@ func Read(path string) []string {
 	defer f.Close()
 
 	s := bufio.NewScanner(f)
+	buf := make([]byte, 0, 64*1024)
+	s.Buffer(buf, 1024*1024*10)
 
 	m := make([]string, 0)
 	for s.Scan() {
 		l := s.Text()
 
 		m = append(m, l)
+	}
+
+	if err := s.Err(); err != nil {
+		fmt.Printf("Error encountered during scanning. Cannot continue: %s\n", err)
+		panic("Error during file read. Exiting.")
 	}
 
 	return m
